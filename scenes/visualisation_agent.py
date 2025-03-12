@@ -6,19 +6,14 @@ from scenes.chatbot import Chatbot
 from scenes.DataModels.InputData import InputData
 from langchain_core.messages import HumanMessage,AIMessage
 import pickle
-import sys
-import os
 
-dirname = os.path.dirname(__file__)
-
-
-if not os.path.exists(os.path.join(dirname,"../upload_data")):
-        os.makedirs(os.path.join(dirname,"../upload_data"))
+if not os.path.exists("upload_data"):
+        os.makedirs("upload_data")
     
 st.title("Data Analysis Dashboard")
 
 data_dict = {}
-with open(os.path.join(dirname,"data_dict.json"),"r") as f:
+with open("data_dict.json","r") as f:
     data_dict = json.load(f)
 
 tab1,tab2,tab3 = st.tabs(["Data Upload","Chat","Debug"])
@@ -29,12 +24,12 @@ with tab1:
     if uploaded_files:
         
         for file in uploaded_files:
-            with open(os.path.join(dirname,"upload_data",file.name),"wb") as f:
+            with open(os.path.join("upload_data",file.name),"wb") as f:
                 f.write(file.getbuffer())
         
         st.success("Files uploaded successfully")
     
-    available_files = [f for f in os.listdir(os.path.join(dirname,"upload_data")) if f.endswith(".csv")]
+    available_files = [f for f in os.listdir("upload_data") if f.endswith(".csv")]
     
     
     if available_files:
@@ -56,7 +51,7 @@ with tab1:
                     try:
                         with st.spinner(f"Loading {filename}"):
                             try:
-                                df = load_csv(os.path.join(dirname,"upload_data",filename))
+                                df = load_csv(os.path.join("upload_data",filename))
                                 st.write(f"Preview of {filename}")
                                 st.dataframe(df.head(5))
                             except Exception as e:

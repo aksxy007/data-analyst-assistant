@@ -10,17 +10,13 @@ import plotly.express as px
 import pandas as pd
 import sklearn
 
-
-dirname = os.path.dirname(__file__)
 persistent_vars = {}
-
-
 plotly_saving_code = """import pickle
 import uuid
 import plotly
 
 for figure in plotly_figures:
-    pickle_filename =  f'{dirname}/images/plotly_figures/pickle/{uuid.uuid4()}.pkl')
+    pickle_filename = f"images/plotly_figures/pickle/{uuid.uuid4()}.pickle"
     with open(pickle_filename, 'wb') as f:
         pickle.dump(figure, f)
 """
@@ -40,10 +36,10 @@ def python_code_executor(graph_state:Annotated[dict,InjectedState],thought:str, 
         if input_dataset.variable_name not in current_variables:
             current_variables[input_dataset.variable_name] = pd.read_csv(input_dataset.data_path)
     
-    if not os.path.exists(f"{dirname}/images/plotly_figures/pickle"):
-        os.makedirs(f"{dirname}/images/plotly_figures/pickle")
+    if not os.path.exists("images/plotly_figures/pickle"):
+        os.makedirs("images/plotly_figures/pickle")
     
-    current_image_pickle_files = os.listdir(f"{dirname}/images/plotly_figures/pickle")
+    current_image_pickle_files = os.listdir("images/plotly_figures/pickle")
     try:
         old_stdout = sys.stdout
         sys.stdout = StringIO()
@@ -68,7 +64,7 @@ def python_code_executor(graph_state:Annotated[dict,InjectedState],thought:str, 
         if 'plotly_figures' in exec_globals:
             exec(plotly_saving_code, exec_globals)
             # Check if any images were created
-            new_image_folder_contents = os.listdir(f"{dirname}/images/plotly_figures/pickle")
+            new_image_folder_contents = os.listdir("images/plotly_figures/pickle")
             new_image_files = [file for file in new_image_folder_contents if file not in current_image_pickle_files]
             if new_image_files:
                 updated_state["output_image_paths"] = new_image_files
