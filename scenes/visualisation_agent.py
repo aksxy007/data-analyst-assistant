@@ -153,7 +153,7 @@ with tab3:
         st.subheader("Intermediate Outputs")
         # print(st.session_state.visualisation_chatbot.intermediate_outputs)
         for i, output in enumerate(st.session_state.visualisation_chatbot.intermediate_outputs):
-            print(output)
+            # print(output)
             with st.expander(f"Step {i+1}"):
                 if 'thought' in output:
                     st.markdown("### Thought Process")

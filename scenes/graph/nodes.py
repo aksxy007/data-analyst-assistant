@@ -129,8 +129,8 @@ def call_tools(state:AgentState):
                 raise Exception(f"Error in tool {tc['name']}: {response}")
             else:
                 message, updates = response
-                print("updates",updates)
-                print("message",message)
+                # print("updates",updates)
+                # print("message",message)
                 
                 tool_messages.append(
                     ToolMessage(
