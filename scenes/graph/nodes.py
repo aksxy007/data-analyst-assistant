@@ -30,8 +30,9 @@ llm = ChatGroq(model_name="llama-3.3-70b-versatile",temperature=0.9,max_tokens=4
 
 tools = [python_code_executor]
 chat_llm=llm.bind_tools(tools)
+dirname = os.path.dirname(__file__)
 
-with open("scenes/prompts/analyst_prompt.md") as f:
+with open(os.path.join(dirname,"scenes/prompts/analyst_prompt.md")) as f:
     analyst_prompt = f.read()
 
 chat_template = ChatPromptTemplate.from_messages([
