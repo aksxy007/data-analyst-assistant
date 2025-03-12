@@ -109,7 +109,7 @@ with tab1:
 
 with tab2:
     st.write("Visualisation page")
-    print(st.session_state.selected_files)
+    # print(st.session_state.selected_files)
     def on_user_submit_query():
         user_query = st.session_state["user_input"]
         input_data_list = [
