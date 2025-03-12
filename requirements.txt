@@ -2,6 +2,7 @@ streamlit==1.43.1
 langchain==0.3.20
 langchain-core==0.3.43
 langchain-groq==0.2.5
+langchain-openai==0.3.8
 langgraph==0.3.5
 pandas==2.2.3
 numpy== 2.2.3
